@@ -13,8 +13,8 @@ services:
     working_dir: /opt/app
     depends_on:
       - mongo
-    networks:
-    - springappnetwork  
+    #networks:
+    #- springappnetwork  
     deploy:  # This will be considered only in docker swarm.
       replicas: 2
       update_config:
@@ -33,13 +33,17 @@ services:
     volumes:
       - mongodb:/data/db
     restart: always
-    networks:
-    - springappnetwork
+    #networks:
+    #- springappnetwork
     
 volumes:
   mongodb:
     external: true
     
 networks:
-  springappnetwork:
-    external: true
+  customoverlay:
+    external: true  
+    
+#networks:
+  #springappnetwork:
+    #external: true
