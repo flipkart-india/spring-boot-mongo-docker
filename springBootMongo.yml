@@ -51,7 +51,7 @@ kind: ReplicaSet
 metadata:
   name: mongodbrs
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: mongo
@@ -71,26 +71,6 @@ spec:
           value: devdb
         - name: MONGO_INITDB_ROOT_PASSWORD
           value: devdb@123
-      volumeMounts:
-      - name: mongodbvol
-        mountPath: /data/db
-      volumes:
-      - name: mongodbvol
-        hostPath:
-          path: /tmp/mongodata
----
-apiVersion: v1
-kind: PersistentVolume
-metadata: 
-  name: hostpathpv
-spec:
-  storageClassName: manual
-  capacity:
-    storage: 4Gi
-  accessModes:
-  - ReadWriteonce
-  hostpath:
-    path: "/tmp/mongodb" 
 ---
 apiVersion: v1
 kind: Service
@@ -102,5 +82,8 @@ spec:
     app: mongo
   ports:
   - port: 27017
-
     targetPort: 27017
+
+
+
+
