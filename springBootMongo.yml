@@ -1,14 +1,9 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: ReplicationController
 metadata:
-  name: springappdeployment
+  name: springapprc
 spec:
   replicas: 2
-  startegy:
-  type: Recreate
-  selector:
-    matchLabels:
-      app: springapp
   template:
     metadata:
       labels:
@@ -16,7 +11,7 @@ spec:
     spec:
       containers:
       - name: springapp
-        image: dockerhandson/spring-boot-mongo
+        image: dockerhandson/spring-boot-mongo:1
         ports:
         - containerPort: 8080
         env:
@@ -83,4 +78,6 @@ spec:
   ports:
   - port: 27017
     targetPort: 27017
+
+
 
